@@ -52,6 +52,7 @@ const WorkCardCarousel = () => {
 
         {workData.map((card, index) => (
           <AnimatedContent
+            key={`mobile-work-${index}`}
             distance={150}
             direction="vertical"
             reverse={false}
@@ -63,7 +64,6 @@ const WorkCardCarousel = () => {
           >
             <WorkCard image={card.image} title={card.title} link={card.link} />
           </AnimatedContent>
-
         ))}
       </div>
     </div>
