@@ -9,17 +9,12 @@ const WorkCardCarousel = dynamic(() => import('./Components/WorkCardCarousel'), 
 
 const FeatureWorkSection = () => {
   return (
-    <div id='work' className='bg-[#FFFCF2]'>
-      {/* Top Heading */}
+    <div id="work" className="overflow-hidden bg-[#FFFCF2] px-6 py-16 md:py-24">
       <TopHeading
         title="Featured work"
-        subTitle='Explore my work and discover the art of impactful design.'
+        subTitle="Explore my work and discover the art of impactful design."
       />
-
-
-      {/* Work Card Carousel */}
       <WorkCardCarousel />
-
     </div>
   )
 }

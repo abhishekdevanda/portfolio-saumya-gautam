@@ -21,7 +21,7 @@ const HeroSection = () => {
         <img
           src="/images/decoresImg/shining_star.png"
           alt="Star Decor"
-          className="absolute top-[-8rem] left-[3rem] w-[47px] h-[67px] bounce-effect "
+          className="absolute top-[-8rem] left-[3rem] w-[47px] h-[67px] bounce-effect md:top-[-3rem]"
           draggable={false}
         />
 
@@ -61,12 +61,12 @@ const HeroSection = () => {
         <img
           src="/images/decoresImg/curve_arrow.png"
           alt="Curve Arrow"
-          className="absolute bottom-[3.5rem] left-[65%] rotate-[-80deg] md:bottom-[1.5rem] md:left-[70%] w-[4rem]  md:w-40 md:rotate-[-8deg] "
+          className="absolute bottom-[3.5rem] left-[69%] rotate-[-80deg] md:bottom-[1.5rem] md:left-[78%] w-[4rem] md:w-40 md:rotate-[-8deg]"
         />
         <img
           src="/images/decoresImg/shining_star.png"
           alt="Star Decor"
-          className="absolute bottom-[-4rem] right-[0rem] w-[47px] h-[67px] bounce-effect "
+          className="absolute bottom-[-4rem] right-[0rem] w-[47px] h-[67px] bounce-effect md:bottom-[2rem]"
           draggable={false}
         />
         {/* Typewriter Effect */}
