@@ -12,6 +12,7 @@ import { IoClose } from "react-icons/io5";
 import CountUp from "../Animations/CountUp";
 
 const SCROLL_RANGE = 120;
+const RESUME_URL = "/Saumya-Gautam-Resume.pdf";
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState("Home");
@@ -121,7 +122,7 @@ const Header = () => {
 
           {/* Resume Button for Desktop */}
           <div className="hidden shrink-0 justify-self-end md:block">
-            <Button text={"Resume"} />
+            <Button text="Resume" href={RESUME_URL} />
           </div>
 
           {/* Hamburger Menu for Mobile */}
@@ -210,7 +211,8 @@ const Header = () => {
             </ul>
             <div className="mt-8 pl-6">
               <Button
-                text={"Resume"}
+                text="Resume"
+                href={RESUME_URL}
                 className="!w-full !border-white text-white hover:bg-white hover:!text-logo"
               />
             </div>

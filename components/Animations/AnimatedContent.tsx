@@ -59,13 +59,16 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
       opacity: animateOpacity ? initialOpacity : 1,
     },
     to: inView
-      ? { transform: "translateY(0px) scale(1)", opacity: 1 }
+      ? {
+          transform: `translate${directions[direction]}(0px) scale(1)`,
+          opacity: 1,
+        }
       : undefined,
     config,
   });
 
   return (
-    <animated.div ref={ref} style={springProps}>
+    <animated.div ref={ref} style={springProps} className="will-change-transform">
       {children}
     </animated.div>
   );

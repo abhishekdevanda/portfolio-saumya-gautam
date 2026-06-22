@@ -1,124 +1,141 @@
-import React from 'react';
-import InfoBox from './Components/InfoBoxProps';
-import Button from '../Button/Button';
-import SplitText from '../Animations/SplitText';
-import BlurText from '../Animations/BlurText';
-import AnimatedContent from '../Animations/AnimatedContent';
+import AnimatedContent from "../Animations/AnimatedContent";
+import Button from "../Button/Button";
+import InfoBox from "./Components/InfoBoxProps";
 
 const AboutMeSection = () => {
   return (
-    <div id='achievements' className='bg-[#FFF3E8]'>
+    <section id="about" className="bg-[#FFF3E8] py-16 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1512px] px-6 md:px-16 lg:px-[80px]">
+        <h2 className="mb-10 flex items-center justify-center font-nanum text-[48px] font-[800] text-[#3C3C3C] md:mb-14 md:text-[80px] lg:mb-16">
+          Ab
+          <img
+            src="/images/@.png"
+            alt=""
+            className="h-[35px] w-[25px] md:h-[52px] md:w-[33px]"
+            draggable={false}
+          />
+          ut me
+        </h2>
 
-      <div className=" w-full font-nanum text-[48px] md:text-[80px] text-[#3C3C3C] font-[800] mb-4 text-center mx-auto flex justify-center items-center ">
-        {/* <BlurText
-          text={'Ab@ut me'}
-          delay={150}
-          animateBy="words"
-          direction="top"
-        /> */}
-        Ab
-        <img src="/images/@.png" alt="@ img" className='w-[25px] h-[35px] md:w-[33px] md:h-[52px]' />
-        ut me
-      </div>
+        <div className="flex flex-col items-center gap-12 md:flex-row md:items-start md:gap-16 lg:gap-20 xl:gap-24">
+          <div className="order-2 w-full text-center md:order-1 md:max-w-[780px] md:flex-[1.15] md:text-left">
+            <AnimatedContent
+              distance={200}
+              direction="horizontal"
+              reverse={true}
+              config={{ tension: 80, friction: 20 }}
+              initialOpacity={0}
+              animateOpacity
+              scale={1.1}
+              threshold={0.2}
+            >
+              <p className="pt-7 font-montserrat text-[18px] font-medium leading-[1.5] tracking-[0.02em] text-[#3C3C3C] md:pt-0 md:text-[40px] md:leading-[60px]">
+                I&apos;m{" "}
+                <span className="relative inline font-bold whitespace-nowrap">
+                  SAUMYA GAUTAM
+                  <InfoBox
+                    text="Delhi"
+                    className="left-2 top-full -translate-y-1/4"
+                  />
+                </span>
+                , a{" "}
+                <span className="relative inline">
+                  UX/UI
+                  <InfoBox
+                    text="2 years"
+                    className="bottom-full left-1/2 translate-y-0 -translate-x-1/2 md:left-[calc(100%+0.05em)] md:translate-x-0"
+                  />
+                </span>{" "}
+                designer driven by <span className="font-bold">CURIOSITY</span> and{" "}
+                <span className="font-bold">CREATIVITY</span>. I specialize in
+                crafting intuitive,{" "}
+                <span className="relative inline font-bold">
+                  USER-CENTERED
+                  <InfoBox
+                    text="Empathy"
+                    className="left-1/2 top-full mt-0.5 -translate-x-1/2 -translate-y-1/4 md:left-[20%] md:mt-1 md:translate-x-0"
+                  />
+                </span>{" "}
+                <span className="font-bold">DESIGNS</span> that solve real-world
+                problems.
+              </p>
+            </AnimatedContent>
 
-      <div className=" py-16 px-6 pt-0 lg:px-24 flex flex-col md:flex-row items-center justify-center gap-20">
-        {/* Left Section - About Text */}
-        <div className="order-2 md:order-1 w-full md:w-[60%] text-left ">
-          <AnimatedContent
-            distance={200}
-            direction="horizontal"
-            reverse={true}
-            config={{ tension: 80, friction: 20 }}
-            initialOpacity={0}
-            animateOpacity
-            scale={1.1}
-            threshold={0.2}
-          >
-            <h6 className="font-montserrat text-[18px] md:text-[40px] leading-[1.4] text-[#333]">
-              I’m <span className="relative font-bold ">
-                SAUMYA GAUTAM
-                <InfoBox
-                  text='Dehli'
-                  ClassName='md:bottom-[-25px] left-0'
+            <AnimatedContent
+              distance={250}
+              direction="vertical"
+              reverse={false}
+              config={{ tension: 80, friction: 20 }}
+              initialOpacity={0}
+              animateOpacity
+              scale={1.1}
+              threshold={0.2}
+            >
+              <p className="mt-8 font-annie text-[28px] leading-tight tracking-[0.03em] text-[#202020] md:mt-10 md:text-[44px]">
+                Let&apos;s make great ideas happen!
+              </p>
+
+              <div className="mt-6 flex justify-center md:mt-8 md:justify-start">
+                <Button
+                  text="Let's Connect"
+                  className="rounded-md border-[#8A6C59] font-semibold text-[#8A6C59] md:!text-[20px]"
                 />
-              </span>
+              </div>
+            </AnimatedContent>
+          </div>
 
-              , a <span className='relative'>UX/UI<InfoBox
-                text='2 years'
-                ClassName='top-[-10px] left-[90%]'
-              />
-              </span> designer driven by{' '}
-
-              <span className="font-bold">CURIOSITY</span> and <span className="font-bold">CREATIVITY</span>. I specialize in crafting intuitive,{' '}
-              <span className="relative font-bold">
-                USER-CENTERED DESIGNS
-                <InfoBox
-                  text='Empathy'
-                  ClassName='bottom-[-25px] left-[40%]'
+          <div className="order-1 flex w-full justify-center md:order-2 md:flex-1 md:justify-end">
+            <AnimatedContent
+              distance={250}
+              direction="vertical"
+              reverse={false}
+              config={{ tension: 80, friction: 20 }}
+              initialOpacity={0}
+              animateOpacity
+              scale={1.1}
+              threshold={0.2}
+            >
+              <div className="relative w-[213px] md:w-[427px]">
+                <div
+                  className="absolute inset-0 bg-[#F9F8F7] shadow-[0_3px_34px_rgba(0,0,0,0.15)] rotate-[-4deg]"
+                  aria-hidden
                 />
-              </span> that solve real-world problems.
-            </h6>
-          </AnimatedContent>
+                <div
+                  className="absolute inset-0 translate-x-1 translate-y-1 bg-[#F9F8F7] shadow-[0_3px_34px_rgba(0,0,0,0.15)] rotate-[3deg]"
+                  aria-hidden
+                />
 
-          <AnimatedContent
-            distance={250}
-            direction="vertical"
-            reverse={false}
-            config={{ tension: 80, friction: 20 }}
-            initialOpacity={0}
-            animateOpacity
-            scale={1.1}
-            threshold={0.2}
-          >
-            <Button text={'Let’s Connect'} className='mt-4 md:mt-6' />
-          </AnimatedContent>
-        </div>
-
-        {/* Right Section - Image and Highlights */}
-        <div className=" flex items-center justify-center order-1 md:order-2 w-full md:w-[40%]">
-          <AnimatedContent
-            distance={250}
-            direction="vertical"
-            reverse={false}
-            config={{ tension: 80, friction: 20 }}
-            initialOpacity={0}
-            animateOpacity
-            scale={1.1}
-            threshold={0.2}
-          >
-            <div className='relative '>
-              {/* Profile Image */}
-              <div className='z-10'>
-                <div className="relative w-[213px] h-[244px] md:w-[426px] md:h-[489px] inline-block z-10 bg-[#F9F8F7] shadow-lg p-4  ">
+                <div className="relative z-10 bg-[#F9F8F7] p-3 shadow-[0_3px_34px_rgba(0,0,0,0.15)] md:p-5">
                   <img
                     src="/images/somya_about_me_img.png"
-                    alt="Somya Gautam"
-                    className=" rotate-2 "
+                    alt="Saumya Gautam"
+                    className="aspect-[376/348] w-full rotate-[2deg] object-cover"
+                    draggable={false}
                   />
-                  {/* Caption */}
-                  <div className="mt-4 text-center font-annie text-[20px] md:text-[40px]  italic text-[#656565]">
+                  <p className="mt-3 text-center font-annie text-[20px] text-[#656565] md:mt-4 md:text-[40px] md:leading-[57px]">
                     Saumya Gautam
-                  </div>
+                  </p>
 
                   <img
                     src="/images/decoresImg/three_line.png"
-                    alt="Star Decor"
-                    className="absolute top-[-25px] left-[-20px] rotate-90 w-[47px] h-[67px] faded-effect "
+                    alt=""
+                    className="faded-effect absolute left-[-20px] top-[-25px] h-[50px] w-[40px] rotate-90 md:h-[67px] md:w-[47px]"
                     draggable={false}
                   />
                 </div>
 
+                <img
+                  src="/images/decoresImg/shining_star.png"
+                  alt=""
+                  className="absolute bottom-[-8px] right-[-12px] z-20 h-[35px] w-[25px] md:bottom-[-4px] md:right-[-16px] md:h-[53px] md:w-[40px]"
+                  draggable={false}
+                />
               </div>
-
-              {/* Polaroid Frame Effect */}
-              <div className="w-[213px] h-[244px] md:w-[426px] md:h-[489px] absolute top-0 left-0 bg-white shadow-lg transform rotate-[-4deg] z-0"></div>
-              <div className="w-[213px] h-[244px] md:w-[426px] md:h-[489px] absolute top-0 left-0 bg-white shadow-lg transform rotate-[2deg] z-0"></div>
-            </div>
-          </AnimatedContent>
+            </AnimatedContent>
+          </div>
         </div>
-
       </div>
-    </div>
+    </section>
   );
 };
 

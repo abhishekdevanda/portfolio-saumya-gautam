@@ -15,7 +15,6 @@ const CENTER_SCALE = 0.70;
 const SIDE_SCALE = 0.76;
 const STAGE_EDGE_GAP = 24;
 const CARD_GAP = 40;
-const SWIPE_THRESHOLD = 50;
 
 function getSideCenterOffset(stageWidth: number) {
   const centerHalf = (CARD_WIDTH * CENTER_SCALE) / 2;
@@ -135,8 +134,6 @@ const WorkCardCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [stageWidth, setStageWidth] = useState(1200);
   const stageRef = useRef<HTMLDivElement>(null);
-  const mobileRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef<number | null>(null);
   const reducedMotion = usePrefersReducedMotion();
   const total = workData.length;
 
@@ -169,35 +166,6 @@ const WorkCardCarousel = () => {
   const goNext = useCallback(() => {
     setActiveIndex((index) => (index + 1) % total);
   }, [total]);
-
-  useEffect(() => {
-    const mobile = mobileRef.current;
-    if (!mobile) return;
-
-    const onTouchStart = (event: TouchEvent) => {
-      touchStartX.current = event.touches[0].clientX;
-    };
-
-    const onTouchEnd = (event: TouchEvent) => {
-      if (touchStartX.current === null) return;
-
-      const delta = event.changedTouches[0].clientX - touchStartX.current;
-      if (Math.abs(delta) >= SWIPE_THRESHOLD) {
-        if (delta > 0) goPrev();
-        else goNext();
-      }
-
-      touchStartX.current = null;
-    };
-
-    mobile.addEventListener("touchstart", onTouchStart, { passive: true });
-    mobile.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      mobile.removeEventListener("touchstart", onTouchStart);
-      mobile.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [goPrev, goNext]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
@@ -288,42 +256,16 @@ const WorkCardCarousel = () => {
         <CarouselDots activeIndex={activeIndex} onSelect={goTo} />
       </div>
 
-      <div
-        ref={mobileRef}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        className="relative outline-none focus-visible:ring-2 focus-visible:ring-[#8A6C59] focus-visible:ring-offset-2 md:hidden"
-        aria-roledescription="carousel"
-        aria-label="Featured work projects"
-      >
-        <button
-          type="button"
-          onClick={goPrev}
-          aria-label="Previous project"
-          className="absolute left-0 top-[36%] z-10 -translate-y-1/2 text-[#3C3C3C]"
-        >
-          <FiChevronLeft className="h-8 w-8" strokeWidth={1.5} />
-        </button>
-
-        <button
-          type="button"
-          onClick={goNext}
-          aria-label="Next project"
-          className="absolute right-0 top-[36%] z-10 -translate-y-1/2 text-[#3C3C3C]"
-        >
-          <FiChevronRight className="h-8 w-8" strokeWidth={1.5} />
-        </button>
-
-        <div className="flex justify-center px-10">
+      <div className="flex flex-col items-center gap-12 px-3 md:hidden">
+        {workData.map((card, index) => (
           <WorkCard
-            image={workData[activeIndex].image}
-            title={workData[activeIndex].title}
-            link={workData[activeIndex].link}
+            key={`${card.title}-${index}`}
+            image={card.image}
+            title={card.title}
+            link={card.link}
             isActive
           />
-        </div>
-
-        <CarouselDots activeIndex={activeIndex} onSelect={goTo} />
+        ))}
       </div>
     </div>
   );

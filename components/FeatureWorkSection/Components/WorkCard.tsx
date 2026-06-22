@@ -15,7 +15,7 @@ const WorkCard = ({
 }: WorkCardProps) => {
   return (
     <article
-      className={`w-[358px] overflow-hidden rounded-lg md:w-[480px] ${
+      className={`mx-auto w-full max-w-[358px] overflow-hidden rounded-lg md:w-[480px] md:max-w-none ${
         isActive ? "opacity-100" : "opacity-80"
       }`}
       inert={!isActive ? true : undefined}
