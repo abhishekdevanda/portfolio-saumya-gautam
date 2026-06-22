@@ -9,96 +9,149 @@ import { workData } from "@/Data/workData";
 import WorkCard from "./WorkCard";
 
 const CARD_WIDTH = 480;
-
 const CARD_IMAGE_HEIGHT = 520;
-
 const SIDE_TILT = 28;
+const CENTER_SCALE = 0.70;
+const SIDE_SCALE = 0.76;
+const STAGE_EDGE_GAP = 24;
+const CARD_GAP = 40;
+const SWIPE_THRESHOLD = 50;
 
-const CENTER_SCALE = 0.79;
+function getSideCenterOffset(stageWidth: number) {
+  const centerHalf = (CARD_WIDTH * CENTER_SCALE) / 2;
+  const sideHalf = (CARD_WIDTH * SIDE_SCALE) / 2;
 
-const SIDE_SCALE = 0.86;
+  // Push side cards toward stage edges (justify-between)
+  const edgeOffset = stageWidth / 2 - STAGE_EDGE_GAP - sideHalf;
 
-const STAGE_EDGE_GAP = 28;
-const TILT_BLEED = 40;
+  // Never pull side cards closer than the minimum gap from the center card
+  const minOffset = centerHalf + sideHalf + CARD_GAP;
 
-function computeSpread(stageWidth: number) {
-  const sideCardHalf = (CARD_WIDTH * SIDE_SCALE) / 2;
-  const maxSpread = stageWidth / 2 - sideCardHalf - STAGE_EDGE_GAP - TILT_BLEED;
-  return Math.max(80, maxSpread);
+  return Math.max(minOffset, edgeOffset);
+}
+
+function getCardX(offset: number, stageWidth: number) {
+  if (offset === 0) return 0;
+  return offset * getSideCenterOffset(stageWidth);
 }
 
 function getWrappedOffset(index: number, activeIndex: number, total: number) {
   let offset = index - activeIndex;
 
   if (offset > total / 2) offset -= total;
-
   if (offset < -total / 2) offset += total;
 
   return offset;
 }
 
-/** Horizontal strip — cards slide off the left, new ones enter from the right */
-
-function getStripStyle(offset: number, cardSpread: number) {
+function getStripStyle(
+  offset: number,
+  stageWidth: number,
+  reducedMotion: boolean,
+) {
   const abs = Math.abs(offset);
-
-  const x = offset * cardSpread;
-
-  const rotateY = offset * -SIDE_TILT;
-
+  const x = getCardX(offset, stageWidth);
   const isCenter = offset === 0;
-
-  const scale = isCenter ? CENTER_SCALE : SIDE_SCALE;
-
-  const translateZ = isCenter ? 48 : -36;
 
   if (abs > 1) {
     return {
-      transform: `translateX(calc(-50% + ${x}px)) rotateY(${rotateY}deg) translateZ(-80px) scale(0.82)`,
-
+      transform: reducedMotion
+        ? `translateX(calc(-50% + ${x}px))`
+        : `translateX(calc(-50% + ${x}px)) rotateY(${offset * -SIDE_TILT}deg) translateZ(-80px) scale(0.82)`,
       opacity: 0,
-
       zIndex: 0,
-
       pointerEvents: "none" as const,
     };
   }
 
+  if (reducedMotion) {
+    return {
+      transform: `translateX(calc(-50% + ${x}px))`,
+      opacity: isCenter ? 1 : 0.55,
+      zIndex: isCenter ? 30 : 20,
+      pointerEvents: isCenter ? ("auto" as const) : ("none" as const),
+    };
+  }
+
+  const rotateY = offset * -SIDE_TILT;
+  const scale = isCenter ? CENTER_SCALE : SIDE_SCALE;
+  const translateZ = isCenter ? 48 : -36;
+
   return {
     transform: `translateX(calc(-50% + ${x}px)) rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`,
-
-    opacity: isCenter ? 1 : 0.92,
-
+    opacity: isCenter ? 1 : 0.85,
     zIndex: isCenter ? 30 : 20,
-
-    pointerEvents: "auto" as const,
+    pointerEvents: isCenter ? ("auto" as const) : ("none" as const),
   };
+}
+
+function usePrefersReducedMotion() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return reducedMotion;
+}
+
+type CarouselDotsProps = {
+  activeIndex: number;
+  onSelect: (index: number) => void;
+};
+
+function CarouselDots({ activeIndex, onSelect }: CarouselDotsProps) {
+  return (
+    <div
+      className="mt-4 flex justify-center gap-2 md:mt-2"
+      role="tablist"
+      aria-label="Project slides"
+    >
+      {workData.map((card, index) => (
+        <button
+          key={`${card.title}-${index}`}
+          type="button"
+          role="tab"
+          aria-selected={index === activeIndex}
+          aria-label={`Go to ${card.title}`}
+          onClick={() => onSelect(index)}
+          className={`h-2 rounded-full transition-all ${
+            index === activeIndex
+              ? "w-6 bg-[#8A6C59]"
+              : "w-2 bg-[#A28B7C]/40 hover:bg-[#A28B7C]/70"
+          }`}
+        />
+      ))}
+    </div>
+  );
 }
 
 const WorkCardCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const [cardSpread, setCardSpread] = useState(480);
-
+  const [stageWidth, setStageWidth] = useState(1200);
   const stageRef = useRef<HTMLDivElement>(null);
-
+  const mobileRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
+  const reducedMotion = usePrefersReducedMotion();
   const total = workData.length;
 
   useEffect(() => {
     const stage = stageRef.current;
-
     if (!stage) return;
 
-    const updateSpread = () => {
-      setCardSpread(computeSpread(stage.clientWidth));
+    const updateStageWidth = () => {
+      setStageWidth(stage.clientWidth);
     };
 
-    updateSpread();
+    updateStageWidth();
 
-    const observer = new ResizeObserver(updateSpread);
-
+    const observer = new ResizeObserver(updateStageWidth);
     observer.observe(stage);
-
     return () => observer.disconnect();
   }, []);
 
@@ -106,7 +159,6 @@ const WorkCardCarousel = () => {
     (index: number) => {
       setActiveIndex((index + total) % total);
     },
-
     [total],
   );
 
@@ -118,10 +170,60 @@ const WorkCardCarousel = () => {
     setActiveIndex((index) => (index + 1) % total);
   }, [total]);
 
+  useEffect(() => {
+    const mobile = mobileRef.current;
+    if (!mobile) return;
+
+    const onTouchStart = (event: TouchEvent) => {
+      touchStartX.current = event.touches[0].clientX;
+    };
+
+    const onTouchEnd = (event: TouchEvent) => {
+      if (touchStartX.current === null) return;
+
+      const delta = event.changedTouches[0].clientX - touchStartX.current;
+      if (Math.abs(delta) >= SWIPE_THRESHOLD) {
+        if (delta > 0) goPrev();
+        else goNext();
+      }
+
+      touchStartX.current = null;
+    };
+
+    mobile.addEventListener("touchstart", onTouchStart, { passive: true });
+    mobile.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      mobile.removeEventListener("touchstart", onTouchStart);
+      mobile.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [goPrev, goNext]);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goPrev();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goNext();
+      }
+    },
+    [goPrev, goNext],
+  );
+
+  const transitionClass = reducedMotion
+    ? ""
+    : "transition-[transform,opacity] duration-500 ease-out";
+
   return (
     <div className="w-full max-w-full overflow-x-hidden">
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {`Showing project ${activeIndex + 1} of ${total}: ${workData[activeIndex].title}`}
+      </p>
+
       <div className="hidden min-w-0 md:block">
-        <div className="flex w-full min-w-0 max-w-full items-start justify-between">
+        <div className="flex w-full min-w-0 max-w-full items-start justify-between gap-4 lg:gap-10 xl:gap-14">
           <button
             type="button"
             onClick={goPrev}
@@ -134,24 +236,28 @@ const WorkCardCarousel = () => {
 
           <div
             ref={stageRef}
-            className="relative mx-4 min-w-0 flex-1 overflow-visible lg:mx-8"
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            className="relative min-w-0 flex-1 overflow-visible outline-none focus-visible:ring-2 focus-visible:ring-[#8A6C59] focus-visible:ring-offset-2"
             style={{ height: CARD_IMAGE_HEIGHT + 170 }}
             aria-roledescription="carousel"
             aria-label="Featured work projects"
           >
-            <div className="h-full w-full overflow-visible [perspective:1200px] [perspective-origin:50%_38%]">
-              <div className="relative h-full w-full overflow-visible [transform-style:preserve-3d]">
+            <div
+              className={`h-full w-full overflow-visible ${reducedMotion ? "" : "[perspective:1200px] [perspective-origin:50%_38%]"}`}
+            >
+              <div
+                className={`relative h-full w-full overflow-visible ${reducedMotion ? "" : "[transform-style:preserve-3d]"}`}
+              >
                 {workData.map((card, index) => {
                   const offset = getWrappedOffset(index, activeIndex, total);
-
-                  const style = getStripStyle(offset, cardSpread);
-
+                  const style = getStripStyle(offset, stageWidth, reducedMotion);
                   const isCenter = offset === 0;
 
                   return (
                     <div
                       key={`${card.title}-${index}`}
-                      className="absolute left-1/2 top-0 origin-center [backface-visibility:hidden] [transform-style:preserve-3d] transition-[transform,opacity] duration-500 ease-out will-change-transform"
+                      className={`absolute left-1/2 top-0 origin-center [backface-visibility:hidden] will-change-transform ${reducedMotion ? "" : "[transform-style:preserve-3d]"} ${transitionClass}`}
                       style={{ width: CARD_WIDTH, ...style }}
                       aria-hidden={!isCenter}
                     >
@@ -179,24 +285,17 @@ const WorkCardCarousel = () => {
           </button>
         </div>
 
-        <div className="mt-2 flex justify-center gap-2">
-          {workData.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Go to project ${index + 1}`}
-              onClick={() => goTo(index)}
-              className={`h-2 rounded-full transition-all ${
-                index === activeIndex
-                  ? "w-6 bg-[#8A6C59]"
-                  : "w-2 bg-[#A28B7C]/40 hover:bg-[#A28B7C]/70"
-              }`}
-            />
-          ))}
-        </div>
+        <CarouselDots activeIndex={activeIndex} onSelect={goTo} />
       </div>
 
-      <div className="relative md:hidden">
+      <div
+        ref={mobileRef}
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+        className="relative outline-none focus-visible:ring-2 focus-visible:ring-[#8A6C59] focus-visible:ring-offset-2 md:hidden"
+        aria-roledescription="carousel"
+        aria-label="Featured work projects"
+      >
         <button
           type="button"
           onClick={goPrev}
@@ -223,6 +322,8 @@ const WorkCardCarousel = () => {
             isActive
           />
         </div>
+
+        <CarouselDots activeIndex={activeIndex} onSelect={goTo} />
       </div>
     </div>
   );

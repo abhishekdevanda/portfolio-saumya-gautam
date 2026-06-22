@@ -10,7 +10,7 @@ const FeatureWorkSection = () => {
           subTitle="Explore my work and discover the art of impactful design."
         />
       </div>
-      <div className="min-w-0 max-w-full overflow-x-hidden px-3 md:px-6 lg:px-10">
+      <div className="min-w-0 max-w-full overflow-x-hidden px-3 md:px-4 lg:px-6 xl:px-8">
         <WorkCardCarousel />
       </div>
     </section>

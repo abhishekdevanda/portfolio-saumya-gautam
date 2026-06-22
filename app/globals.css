@@ -209,3 +209,11 @@ img {
   animation: faded 1s linear infinite;
   will-change: transform;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .faded-effect,
+  .bounce-effect,
+  .cicular-effect {
+    animation: none;
+  }
+}
