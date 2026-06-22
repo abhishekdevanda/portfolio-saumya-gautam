@@ -1,7 +1,7 @@
 import SkillsAutoScroll from "./components/SkillsAutoScroll";
 import TypeWriter from "../TypeWriter/TypeWriter";
 import FadeContent from "../Animations/FadeContent";
-
+import IdeaEclipse from "./components/IdeaEclipse";
 const typoData: string[] = [
   "ux and ui design",
   "curiosity and innovation",
@@ -33,13 +33,9 @@ const HeroSection = () => {
           <h1 className="hidden md:block font-nanum text-[52px] md:text-[120px] leading-[52px]  md:leading-[130px] font-[800] ">
             Shaping{" "}
             <span className="relative inline-block">
-              <span className="relative font-nanum text-[48px] md:text-[120px] font-[800] italic  ">
+              <span className="relative inline-block font-nanum text-[48px] md:text-[120px] font-[800] italic  ">
                 ideas
-                <img
-                  src="/images/decoresImg/idea_eclipse.png"
-                  alt="Eclipse Decor"
-                  className="absolute top-[-30px] w-[382px] h-[100px] md:h-[185px] cicular-effect"
-                />
+                <IdeaEclipse />
               </span>{" "}
               into
             </span>
@@ -49,13 +45,9 @@ const HeroSection = () => {
 
           <h1 className="block md:hidden font-nanum text-[52px] md:text-[120px] leading-[52px]  md:leading-[130px] font-[800] ">
             Shaping{" "}
-            <span className="relative font-nanum text-[48px] md:text-[120px] font-[800] italic ">
+            <span className="relative inline-block font-nanum text-[48px] md:text-[120px] font-[800] italic ">
               ideas
-              <img
-                src="/images/decoresImg/idea_eclipse.png"
-                alt="Eclipse Decor"
-                className="absolute top-[-30px] left-0 w-[382px] h-[100px] md:h-[185px] cicular-effect "
-              />
+              <IdeaEclipse />
             </span>{" "}
             into intuitive experiences with
           </h1>
