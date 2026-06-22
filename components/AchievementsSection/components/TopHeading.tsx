@@ -9,7 +9,7 @@ interface TopHeadingProps {
 
 const TopHeading: React.FC<TopHeadingProps> = ({ title, subTitle }) => {
   return (
-    <div className="relative text-center mb-8">
+    <div className="relative text-center mb-2">
       <h2 className="relative inline-block text-[40px] md:text-[80px] font-nanum font-[800] text-[#3C3C3C]">
         <BlurText
           text={title}

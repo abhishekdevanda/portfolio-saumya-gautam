@@ -1,22 +1,20 @@
-"use client"
-import React from 'react'
-import TopHeading from './Components/TopHeader'
-import dynamic from 'next/dynamic';
-
-const WorkCardCarousel = dynamic(() => import('./Components/WorkCardCarousel'), {
-  ssr: false,
-});
+import TopHeading from "./Components/TopHeader";
+import WorkCardCarousel from "./Components/WorkCardCarousel";
 
 const FeatureWorkSection = () => {
   return (
-    <div id="work" className="overflow-hidden bg-[#FFFCF2] px-6 py-16 md:py-24">
-      <TopHeading
-        title="Featured work"
-        subTitle="Explore my work and discover the art of impactful design."
-      />
-      <WorkCardCarousel />
-    </div>
-  )
-}
+    <section id="work" className="overflow-x-hidden bg-[#FFFCF2] py-16 md:py-24">
+      <div className="px-6 md:px-16 lg:px-[80px]">
+        <TopHeading
+          title="Featured work"
+          subTitle="Explore my work and discover the art of impactful design."
+        />
+      </div>
+      <div className="min-w-0 max-w-full overflow-x-hidden px-3 md:px-6 lg:px-10">
+        <WorkCardCarousel />
+      </div>
+    </section>
+  );
+};
 
-export default FeatureWorkSection
+export default FeatureWorkSection;
