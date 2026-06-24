@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { FaBehance, FaInstagram, FaLinkedinIn } from 'react-icons/fa6'
@@ -92,7 +93,7 @@ const ContactSection = () => {
         <div className="flex flex-col items-center gap-10 px-6 pb-16 pt-10 text-center md:flex-row md:items-start md:justify-between md:gap-8 md:px-16 md:pb-20 md:pt-[72px] md:text-left lg:px-[80px] xl:px-[147px]">
           <div className="relative mx-auto w-full max-w-[340px] font-annie text-[16px] leading-[1.43] tracking-[0.04em] md:mx-0 md:max-w-[371px] md:text-[30px] md:leading-[43px]">
             <ContactReveal canAnimate={canAnimate}>
-              <img
+              <Image
                 src="/images/decoresImg/light_three_lines.png"
                 alt=""
                 width={47}

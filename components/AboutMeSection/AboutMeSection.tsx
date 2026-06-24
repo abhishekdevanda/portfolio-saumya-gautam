@@ -1,6 +1,7 @@
 import AnimatedContent from "../Animations/AnimatedContent";
 import Button from "../Button/Button";
 import InfoBox from "./Components/InfoBoxProps";
+import Image from "next/image";
 
 const AboutMeSection = () => {
   return (
@@ -8,9 +9,11 @@ const AboutMeSection = () => {
       <div className="mx-auto max-w-[1512px] px-6 md:px-16 lg:px-[80px]">
         <h2 className="mb-10 flex items-center justify-center font-nanum text-[48px] font-[800] text-[#3C3C3C] md:mb-14 md:text-[80px] lg:mb-16">
           Ab
-          <img
+          <Image
             src="/images/@.png"
             alt=""
+            width={33}
+            height={52}
             className="h-[35px] w-[25px] md:h-[52px] md:w-[33px]"
             draggable={false}
           />
@@ -106,9 +109,11 @@ const AboutMeSection = () => {
                 />
 
                 <div className="relative z-10 bg-[#F9F8F7] p-3 shadow-[0_3px_34px_rgba(0,0,0,0.15)] md:p-5">
-                  <img
+                  <Image
                     src="/images/somya_about_me_img.png"
                     alt="Saumya Gautam"
+                    width={376}
+                    height={348}
                     className="aspect-[376/348] w-full rotate-[2deg] object-cover"
                     draggable={false}
                   />
@@ -116,17 +121,21 @@ const AboutMeSection = () => {
                     Saumya Gautam
                   </p>
 
-                  <img
+                  <Image
                     src="/images/decoresImg/three_line.png"
                     alt=""
+                    width={47}
+                    height={67}
                     className="faded-effect absolute left-[-20px] top-[-25px] h-[50px] w-[40px] rotate-90 md:h-[67px] md:w-[47px]"
                     draggable={false}
                   />
                 </div>
 
-                <img
+                <Image
                   src="/images/decoresImg/shining_star.png"
                   alt=""
+                  width={40}
+                  height={53}
                   className="absolute bottom-[-8px] right-[-12px] z-20 h-[35px] w-[25px] md:bottom-[-4px] md:right-[-16px] md:h-[53px] md:w-[40px]"
                   draggable={false}
                 />

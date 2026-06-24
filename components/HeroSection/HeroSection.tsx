@@ -2,6 +2,7 @@ import SkillsAutoScroll from "./components/SkillsAutoScroll";
 import TypeWriter from "../TypeWriter/TypeWriter";
 import FadeContent from "../Animations/FadeContent";
 import IdeaEclipse from "./components/IdeaEclipse";
+import Image from "next/image";
 const typoData: string[] = [
   "ux and ui design",
   "curiosity and innovation",
@@ -17,10 +18,12 @@ const HeroSection = () => {
       {/* Hero Text */}
       <div className="relative text-center px-4 mb-[80px] ">
         {/* Decorative Props */}
-        <img
+        <Image
           src="/images/decoresImg/shining_star.png"
           alt="Star Decor"
-          className="absolute top-[-8rem] left-[3rem] w-[47px] h-[67px] bounce-effect md:top-[-3rem]"
+          width={47}
+          height={67}
+          className="absolute top-[-8rem] left-[3rem] h-[67px] w-[47px] bounce-effect md:top-[-3rem]"
           draggable={false}
         />
 
@@ -53,15 +56,19 @@ const HeroSection = () => {
           </h1>
         </FadeContent>
         {/* Curve Arrow */}
-        <img
+        <Image
           src="/images/decoresImg/curve_arrow.png"
           alt="Curve Arrow"
-          className="absolute bottom-[3.5rem] left-[69%] rotate-[-80deg] md:bottom-[1.5rem] md:left-[78%] w-[4rem] md:w-40 md:rotate-[-8deg]"
+          width={160}
+          height={80}
+          className="absolute bottom-[3.5rem] left-[69%] h-[4rem] w-[4rem] rotate-[-80deg] md:bottom-[1.5rem] md:left-[78%] md:h-40 md:w-40 md:rotate-[-8deg]"
         />
-        <img
+        <Image
           src="/images/decoresImg/shining_star.png"
           alt="Star Decor"
-          className="absolute bottom-[-4rem] right-[0rem] w-[47px] h-[67px] bounce-effect md:bottom-[2rem]"
+          width={47}
+          height={67}
+          className="absolute bottom-[-4rem] right-[0rem] h-[67px] w-[47px] bounce-effect md:bottom-[2rem]"
           draggable={false}
         />
         {/* Typewriter Effect */}

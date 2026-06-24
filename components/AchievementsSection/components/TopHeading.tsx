@@ -1,5 +1,6 @@
 import BlurText from '@/components/Animations/BlurText';
 import SplitText from '@/components/Animations/SplitText';
+import Image from 'next/image';
 import React from 'react';
 
 interface TopHeadingProps {
@@ -17,10 +18,12 @@ const TopHeading: React.FC<TopHeadingProps> = ({ title, subTitle }) => {
           animateBy="words"
           direction="top"
         />
-        <img
+        <Image
           src="/images/decoresImg/three_line.png"
           alt="Star Decor"
-          className="absolute bottom-[37px] md:bottom-[80px] left-[-12px] md:left-[-10px] rotate-90  w-[40px] h-[50px]  md:w-[47px] md:h-[67px] faded-effect "
+          width={47}
+          height={67}
+          className="absolute bottom-[37px] left-[-12px] h-[50px] w-[40px] rotate-90 faded-effect md:bottom-[80px] md:left-[-10px] md:h-[67px] md:w-[47px]"
           draggable={false}
         />
 
@@ -35,10 +38,12 @@ const TopHeading: React.FC<TopHeadingProps> = ({ title, subTitle }) => {
           rootMargin="-50px"
         />
       </div>
-      <img
+      <Image
         src="/images/decoresImg/shining_star.png"
         alt="Star Decor"
-        className="absolute bottom-0 right-[5%] md:left-[70%] w-[25px] h-[35px] md:w-[40px] md:h-[53px] "
+        width={40}
+        height={53}
+        className="absolute bottom-0 right-[5%] h-[35px] w-[25px] md:left-[70%] md:h-[53px] md:w-[40px]"
         draggable={false}
       />
     </div>

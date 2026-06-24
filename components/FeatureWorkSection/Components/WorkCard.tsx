@@ -1,4 +1,5 @@
 import Magnet from "@/components/Animations/Magnet";
+import Image from "next/image";
 
 type WorkCardProps = {
   image: string;
@@ -20,9 +21,11 @@ const WorkCard = ({
       }`}
       inert={!isActive ? true : undefined}
     >
-      <img
+      <Image
         src={image}
         alt={title}
+        width={480}
+        height={520}
         className="h-[363px] w-full rounded-lg object-cover md:h-[520px]"
         draggable={false}
       />

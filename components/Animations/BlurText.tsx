@@ -1,6 +1,6 @@
 "use client"
 import React, { useRef, useEffect, useState } from 'react';
-import { useSprings, animated, SpringValue, SpringConfig } from '@react-spring/web';
+import { useSprings, animated, SpringConfig } from '@react-spring/web';
 
 type Direction = 'top' | 'bottom';
 type AnimateBy = 'words' | 'letters';

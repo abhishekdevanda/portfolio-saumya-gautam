@@ -9,6 +9,7 @@ import {
 } from "react";
 import GalleryCard from "./GalleryCard";
 import Magnet from "@/components/Animations/Magnet";
+import Image from "next/image";
 
 const SCROLL_DURATION_MS = 200_000;
 const COPY_COUNT = 3;
@@ -176,10 +177,12 @@ const InfiniteGalleryScrolling = ({ data }: { data: AchievementItem[] }) => {
 
   const renderItem = (item: AchievementItem, index: number, copyId: string) => (
     <div key={`${copyId}-${index}`} className="flex items-center gap-12">
-      <img
+      <Image
         src={item.icon}
         alt=""
-        className="w-24 rotate-[-8deg] md:w-40"
+        width={160}
+        height={160}
+        className="h-auto w-24 rotate-[-8deg] md:w-40"
       />
       {copyId === "set-0" ? (
         <Magnet padding={50} disabled={isDragging} magnetStrength={10}>
