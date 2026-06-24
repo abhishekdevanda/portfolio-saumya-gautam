@@ -5,8 +5,8 @@ import InfiniteGalleryScrolling from './components/InfiniteGalleryScrolling';
 
 const AchievementSection = () => {
   return (
-    <div className="bg-[#FFFCF2] py-16 overflow-hidden ">
-      <div className="container mx-auto ">
+    <div className="bg-[#FFFCF2] py-16">
+      <div className="container mx-auto overflow-x-hidden">
         {/* Top Heading */}
         <TopHeading
           title="Achievements so far"
