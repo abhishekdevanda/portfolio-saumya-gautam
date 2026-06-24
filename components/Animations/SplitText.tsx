@@ -1,6 +1,8 @@
 "use client"
-import { useSprings, animated, SpringValue, SpringConfig } from '@react-spring/web';
+import { useSprings, animated, SpringConfig, type ControllerUpdate } from '@react-spring/web';
 import { useEffect, useRef, useState } from 'react';
+
+type SplitSpringState = Record<string, string | number>;
 
 type SplitTextProps = {
   text?: string;
@@ -53,10 +55,10 @@ const SplitText: React.FC<SplitTextProps> = ({
 
   const springs = useSprings(
     letters.length,
-    letters.map((_, i) => ({
+    letters.map((_, i): ControllerUpdate<SplitSpringState> => ({
       from: animationFrom,
       to: inView
-        ? async (next: any) => {
+        ? async (next) => {
           await next(animationTo);
           animatedCount.current += 1;
           if (

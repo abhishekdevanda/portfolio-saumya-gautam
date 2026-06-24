@@ -1,9 +1,11 @@
 "use client"
 import React, { useRef, useEffect, useState } from 'react';
-import { useSprings, animated, SpringConfig } from '@react-spring/web';
+import { useSprings, animated, SpringConfig, type ControllerUpdate } from '@react-spring/web';
 
 type Direction = 'top' | 'bottom';
 type AnimateBy = 'words' | 'letters';
+
+type BlurSpringState = Record<string, string | number>;
 
 interface BlurTextProps {
   text?: string;
@@ -72,9 +74,9 @@ const BlurText: React.FC<BlurTextProps> = ({
 
   const springs = useSprings(
     elements.length,
-    elements.map((_, i) => ({
+    elements.map((_, i): ControllerUpdate<BlurSpringState> => ({
       from: animationFrom || defaultFrom,
-      to: async (next: any) => {
+      to: async (next) => {
         if (inView) {
           for (const step of animationTo || defaultTo) {
             await next(step);

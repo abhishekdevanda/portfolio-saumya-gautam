@@ -1,9 +1,8 @@
 "use client";
 import { Link } from "react-scroll";
 import {
-  useEffect,
-  useLayoutEffect,
   useState,
+  useSyncExternalStore,
   type CSSProperties,
 } from "react";
 import Button from "../Button/Button";
@@ -14,33 +13,35 @@ import CountUp from "../Animations/CountUp";
 const SCROLL_RANGE = 120;
 const RESUME_URL = "/Saumya-Gautam-Resume.pdf";
 
+function getScrollProgress() {
+  return Math.min(1, window.scrollY / SCROLL_RANGE);
+}
+
+function subscribeToScroll(onStoreChange: () => void) {
+  let rafId = 0;
+
+  const onScroll = () => {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(onStoreChange);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  return () => {
+    cancelAnimationFrame(rafId);
+    window.removeEventListener("scroll", onScroll);
+  };
+}
+
 const Header = () => {
   const [activeLink, setActiveLink] = useState("Home");
   const [showSideBar, setShowSideBar] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  const updateScrollProgress = () => {
-    setScrollProgress(Math.min(1, window.scrollY / SCROLL_RANGE));
-  };
-
-  useLayoutEffect(() => {
-    updateScrollProgress();
-  }, []);
-
-  useEffect(() => {
-    let rafId = 0;
-
-    const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(updateScrollProgress);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+  const scrollProgress = useSyncExternalStore(
+    subscribeToScroll,
+    getScrollProgress,
+    () => 0
+  );
 
   const handleCloseSidebar = () => {
     setShowSideBar(false);
