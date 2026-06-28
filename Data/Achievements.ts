@@ -2,7 +2,7 @@ export const achievementsData = [
   {
     icon: '/images/decoresImg/flag.png',
     image: '/images/achievementImg/1.jpeg',
-    caption: 'Proudly wearing my gown at my graduation ceremony',
+    caption: 'Proudly wearing my gold at my graduation ceremony',
   },
   {
     icon: '/images/decoresImg/smily.png',
