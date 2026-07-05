@@ -5,8 +5,8 @@ import Image from "next/image";
 
 const AboutMeSection = () => {
   return (
-    <section id="about" className="bg-[#FFF3E8] py-16 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-6 md:px-16 lg:px-[80px]">
+    <section id="about" className="bg-[#FFF3E8] py-12 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1512px] px-4 md:px-16 lg:px-[80px]">
         <h2 className="mb-10 flex items-center justify-center font-nanum text-[48px] font-[800] text-[#3C3C3C] md:mb-14 md:text-[80px] lg:mb-16">
           Ab
           <Image
@@ -21,7 +21,7 @@ const AboutMeSection = () => {
         </h2>
 
         <div className="flex flex-col items-center gap-12 md:flex-row md:items-start md:gap-16 lg:gap-20 xl:gap-24">
-          <div className="order-2 w-full text-center md:order-1 md:max-w-[780px] md:flex-[1.15] md:text-left">
+          <div className="order-2 w-full md:order-1 md:max-w-[780px] md:flex-[1.15] md:text-left">
             <AnimatedContent
               distance={200}
               direction="horizontal"
@@ -32,13 +32,13 @@ const AboutMeSection = () => {
               scale={1.1}
               threshold={0.2}
             >
-              <p className="pt-7 font-montserrat text-[18px] font-medium leading-[1.5] tracking-[0.02em] text-[#3C3C3C] md:pt-0 md:text-[40px] md:leading-[60px]">
+              <p className="relative mx-auto max-w-[358px] text-center font-montserrat text-[20px] font-medium leading-[28px] text-[#3C3C3C] md:mx-0 md:max-w-none md:text-left md:text-[40px] md:leading-[60px] md:tracking-[0.02em]">
                 I&apos;m{" "}
-                <span className="relative inline font-bold whitespace-nowrap">
+                <span className="relative inline whitespace-nowrap font-bold">
                   SAUMYA GAUTAM
                   <InfoBox
                     text="Delhi"
-                    className="left-2 top-full -translate-y-1/4"
+                    className="left-0 top-full -translate-y-1/3 md:left-2 md:-translate-y-1/3"
                   />
                 </span>
                 , a{" "}
@@ -46,17 +46,17 @@ const AboutMeSection = () => {
                   UX/UI
                   <InfoBox
                     text="2 years"
-                    className="bottom-full left-1/2 translate-y-0 -translate-x-1/2 md:left-[calc(100%+0.05em)] md:translate-x-0"
+                    className="-top-4 left-[84%] -translate-x-1/2 md:bottom-full md:left-[calc(100%+0.05em)] md:top-auto md:translate-x-0"
                   />
                 </span>{" "}
-                designer driven by <span className="font-bold">CURIOSITY</span> and{" "}
-                <span className="font-bold">CREATIVITY</span>. I specialize in
-                crafting intuitive,{" "}
+                designer driven by <span className="font-bold">CURIOSITY</span>{" "}
+                and <span className="font-bold">CREATIVITY</span>. I specialize
+                in crafting intuitive,{" "}
                 <span className="relative inline font-bold">
                   USER-CENTERED
                   <InfoBox
                     text="Empathy"
-                    className="left-1/2 top-full mt-0.5 -translate-x-1/2 -translate-y-1/4 md:left-[20%] md:mt-1 md:translate-x-0"
+                    className="left-1/2 top-full -translate-x-1/2 -translate-y-1/3 md:left-[20%] md:translate-x-0 md:-translate-y-1/4"
                   />
                 </span>{" "}
                 <span className="font-bold">DESIGNS</span> that solve real-world

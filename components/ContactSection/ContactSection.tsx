@@ -81,10 +81,10 @@ const ContactSection = () => {
               delay={250}
               animateBy="words"
               direction="top"
-              className="w-full max-w-full flex-wrap justify-center text-center font-montserrat text-[36px] font-semibold leading-[1.22] text-white sm:text-[44px] md:flex-nowrap md:whitespace-nowrap md:text-[clamp(3rem,11vw,11.25rem)]"
+              className="w-full max-w-full flex-nowrap justify-center whitespace-nowrap text-center font-montserrat text-[36px] font-semibold leading-[1.22] text-white sm:text-[44px] md:text-[clamp(3rem,11vw,11.25rem)]"
             />
           ) : (
-            <p className="text-center font-montserrat text-[44px] font-semibold leading-[1.22] text-white">
+            <p className="whitespace-nowrap text-center font-montserrat text-[clamp(1.625rem,9vw,2.75rem)] font-semibold leading-[1.22] text-white">
               LET&apos;S CONNECT
             </p>
           )}
