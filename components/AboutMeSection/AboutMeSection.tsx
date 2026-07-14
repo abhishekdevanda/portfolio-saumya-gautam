@@ -81,6 +81,7 @@ const AboutMeSection = () => {
               <div className="mt-6 flex justify-center md:mt-8 md:justify-start">
                 <Button
                   text="Let's Connect"
+                  href="#contact"
                   className="rounded-md border-[#8A6C59] font-semibold text-[#8A6C59] md:!text-[20px]"
                 />
               </div>

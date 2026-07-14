@@ -225,8 +225,14 @@ const WorkCardCarousel = () => {
                   return (
                     <div
                       key={`${card.title}-${index}`}
-                      className={`absolute left-1/2 top-0 origin-center [backface-visibility:hidden] will-change-transform ${reducedMotion ? "" : "[transform-style:preserve-3d]"} ${transitionClass}`}
-                      style={{ width: CARD_WIDTH, ...style }}
+                      className={`absolute left-1/2 top-0 origin-center [backface-visibility:hidden] will-change-transform ${transitionClass}`}
+                      style={{
+                        width: CARD_WIDTH,
+                        ...style,
+                        // Keep transforms flat for reliable CTA hit-testing
+                        transformStyle: "flat",
+                        pointerEvents: isCenter ? "auto" : "none",
+                      }}
                       aria-hidden={!isCenter}
                     >
                       <WorkCard
